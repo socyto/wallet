@@ -10,17 +10,28 @@ import {
   signOut,
 } from 'firebase/auth';
 import * as Facebook from 'expo-facebook';
+import {
+  apiKey,
+  authDomain,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
+  measurementId,
+} from '@env';
+
+
 
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAH-FjBhWky_amWZFHSWrXJkfg97UPqHTA",
-  authDomain: "ametiz.firebaseapp.com",
-  projectId: "ametiz",
-  storageBucket: "ametiz.appspot.com",
-  messagingSenderId: "551444345235",
-  appId: "1:551444345235:web:baff775c94389283f3b866",
-  measurementId: "G-KYRERT3N82"
+  apiKey,
+  authDomain,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
+  measurementId,
 };
 
 // Initialize Firebase
