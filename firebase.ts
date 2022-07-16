@@ -36,6 +36,7 @@ onAuthStateChanged(auth, user => {
 });
 
 const signInWithFacebook = async () => {
+  console.log('signInWithFacebook');
   try {
     await Facebook.initializeAsync({appId: '904475463449983', appName: 'Ametiz' });
 
@@ -45,12 +46,14 @@ const signInWithFacebook = async () => {
 }
 
 const signInWithGoogle = async () => {
+  console.log("signInWithGoogle");
   try {
     var provider = new GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
     signInWithRedirect(auth, provider);
   } catch (e) {
+    console.log("eEEE", e);
     return { error: true };
   }
 }
@@ -74,6 +77,7 @@ const signInEmailPassword = async (event: { email: string; password: string }) =
     const { email, password } = event;
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+    console.log("userCredential", user);
     return user;
   } catch (error: any) {
     const errorCode = error.code;

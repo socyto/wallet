@@ -1,13 +1,13 @@
 import firebase from "../firebase";
 export default {
-  signIn: (event: any) => {
-    const provider = event.data.provider;
+  signIn: (data: any) => {
+    const { provider, ...user } = data;
     if (provider === 'google') {
       firebase.signInWithGoogle();
     } else if (provider === 'facebook') {
       firebase.signInWithFacebook();
     } else if (provider === 'email') {
-      firebase.signInEmailPassword(event.data);
+      firebase.signInEmailPassword(user);
     }
   },
   signUp: (event: any) => {
