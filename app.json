@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expo-mobile",
-    "slug": "expo-mobile",
+    "name": "ametiz-mobile",
+    "slug": "ametiz-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
