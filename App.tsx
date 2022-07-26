@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
-import { StyleSheet, Dimensions, View } from 'react-native';
+import { StyleSheet, View, StatusBar as StatusBarReact } from 'react-native';
 
 import firebase from "./firebase";
 import appEvent from './handler/appEvent';
@@ -27,22 +27,19 @@ export default class App extends Component {
 
   handleOnMessage = (event: WebViewMessageEvent) => {
     const message = JSON.parse(event.nativeEvent.data);
-    console.log("message", message);
     if (message.event === 'login') {
       appEvent.signIn(message.data);
     }
   }
 
   render() {
-    const windowWidth = Dimensions.get('window').width;
-    const windowHeight = Dimensions.get('window').height;
     return (
       <View style={styles.container}>
-        <StatusBar style="dark" />
+        <StatusBar/>
         <WebView
-          style={{ height: windowHeight, width: windowWidth }}
+          style={{ flex: 1 }}
           originWhitelist={['*']}
-          source={{ uri: 'http://172.16.4.172:3000/signin' }}
+          source={{ uri: 'http://192.168.9.140:3000/' }}
           onMessage={this.handleOnMessage}
           onError={error => console.log(error)}
           ref={(r) => this.webview = r}
@@ -57,8 +54,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: StatusBarReact.currentHeight || 35 + 2,
   },
 });
