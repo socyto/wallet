@@ -39,12 +39,13 @@ export default class App extends Component {
         <WebView
           style={{ flex: 1 }}
           originWhitelist={['*']}
-          source={{ uri: 'http://192.168.9.140:3000/' }}
+          source={{ uri: 'http://192.168.0.91:8080/' }}
           onMessage={this.handleOnMessage}
           onError={error => console.log(error)}
           ref={(r) => this.webview = r}
           javaScriptEnabledAndroid={true}
           javaScriptEnabled={true}
+          nestedScrollEnabled
         />
       </View>
     );
