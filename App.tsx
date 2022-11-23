@@ -9,53 +9,13 @@ import appEvent from "./handler/appEvent";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 
+import {
+  googleIosClientId,
+  googleAndroidClientId,
+  googleExpoClientId,
+} from "@env";
+
 WebBrowser.maybeCompleteAuthSession();
-
-// export class App1 extends Component {
-//   webview: WebView | null = null;
-//   constructor(props: any) {
-//     super(props);
-
-//     this.handleOnMessage = this.handleOnMessage.bind(this);
-//     this.handlePostMessage = this.handlePostMessage.bind(this);
-//   }
-
-//   handlePostMessage() {
-//     if (!this?.webview) return;
-//     const user = firebase.auth.currentUser;
-//     this.webview.postMessage(
-//       JSON.stringify({
-//         event: "auth",
-//         data: user?.getIdToken(),
-//       })
-//     );
-//   }
-
-//   handleOnMessage = (event: WebViewMessageEvent) => {
-//     const message = JSON.parse(event.nativeEvent.data);
-//     if (message.event === "login") {
-//       appEvent.signIn(message.data);
-//     }
-//   };
-
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <StatusBar />
-//         <WebView
-//           style={{ flex: 1 }}
-//           originWhitelist={["*"]}
-//           source={{ uri: "http://192.168.9.140:3000/" }}
-//           onMessage={this.handleOnMessage}
-//           onError={(error) => console.log(error)}
-//           ref={(r) => (this.webview = r)}
-//           javaScriptEnabledAndroid={true}
-//           javaScriptEnabled={true}
-//         />
-//       </View>
-//     );
-//   }
-// }
 
 export default function App() {
   const webView = useRef<WebView<{ javaScriptEnabledAndroid: boolean }> | null>(
@@ -66,22 +26,10 @@ export default function App() {
   const [userInfo, setUserInfo] = useState();
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    // expoClientId:
-    //   "20928212086-mqb72976fos5mku437t03sooq7a9n4qq.apps.googleusercontent.com",
-    // iosClientId:
-    //   "20928212086-mqb72976fos5mku437t03sooq7a9n4qq.apps.googleusercontent.com",
-    // androidClientId:
-    //   "20928212086-mqb72976fos5mku437t03sooq7a9n4qq.apps.googleusercontent.com",
-    // webClientId:
-    //   "20928212086-mqb72976fos5mku437t03sooq7a9n4qq.apps.googleusercontent.com",
-    expoClientId:
-      "20928212086-mqb72976fos5mku437t03sooq7a9n4qq.apps.googleusercontent.com",
-    iosClientId:
-      "20928212086-junp085r5c54s3lovsa8emiq941jgqjv.apps.googleusercontent.com",
-    androidClientId:
-      "20928212086-junp085r5c54s3lovsa8emiq941jgqjv.apps.googleusercontent.com",
-    webClientId:
-      "20928212086-junp085r5c54s3lovsa8emiq941jgqjv.apps.googleusercontent.com",
+    expoClientId: googleExpoClientId,
+    iosClientId: googleIosClientId,
+    androidClientId: googleAndroidClientId,
+    webClientId: googleExpoClientId,
   });
 
   const handlePostMessage = () => {
