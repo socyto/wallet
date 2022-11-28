@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { StyleSheet, View, StatusBar as StatusBarReact } from "react-native";
 
-
 import { webClientUrl } from "@env";
 import useSocialAuthRequest from "./hooks/useSocialAuthRequest";
 
@@ -12,14 +11,12 @@ export default function App() {
     null
   );
 
-  const { userInfo, promptAsync } = useSocialAuthRequest();
+  const { userInfo, promptAsync, logout } = useSocialAuthRequest();
 
   const handlePostMessage = (eventMessage: { event: string; data: any }) => {
     if (!webView.current) return;
 
-    webView.current.postMessage(
-      JSON.stringify(eventMessage)
-    );
+    webView.current.postMessage(JSON.stringify(eventMessage));
   };
 
   const handleOnMessage = (event: WebViewMessageEvent) => {
@@ -27,6 +24,8 @@ export default function App() {
     if (message.event === "login") {
       const { provider } = message.data;
       promptAsync(provider);
+    } else if (message.event === "logout") {
+      logout();
     }
   };
 

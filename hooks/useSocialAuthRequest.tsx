@@ -69,6 +69,11 @@ export default function useSocialAuthRequest() {
     }
   };
 
+  const logout = ()=>{
+    setUserInfo(undefined);
+    setSocialAccessToken("");
+  }
+
   useEffect(() => {
     let authSessionResult: AuthSessionResult | null = null;
     if (googleResponse?.type === "success") {
@@ -92,6 +97,7 @@ export default function useSocialAuthRequest() {
 
   return {
     userInfo,
+    logout,
     promptAsync,
   };
 }
