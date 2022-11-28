@@ -9,6 +9,9 @@ import {
   googleIosClientId,
   googleAndroidClientId,
   googleExpoClientId,
+  facebookIosClientId,
+  facebookAndroidClientId,
+  facebookExpoClientId,
   backendUrl,
 } from "@env";
 
@@ -34,7 +37,10 @@ export default function useSocialAuthRequest() {
 
   const [_facebookRequest, facebookResponse, facebookPromptAsync] =
     Facebook.useAuthRequest({
-      clientId: "<YOUR FBID>",
+      expoClientId: facebookExpoClientId,
+      clientId: facebookExpoClientId,
+      androidClientId: facebookAndroidClientId,
+      iosClientId: facebookIosClientId,
       responseType: ResponseType.Code,
     });
 

@@ -20,7 +20,6 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.vqvcompany.stalander",
-      "deploymentTarget": "13.0"
     },
     "android": {
       "adaptiveIcon": {

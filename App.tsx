@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { StyleSheet, View, StatusBar as StatusBarReact } from "react-native";
 
-import firebase from "./firebase";
 
 import { webClientUrl } from "@env";
 import useSocialAuthRequest from "./hooks/useSocialAuthRequest";
@@ -18,7 +17,6 @@ export default function App() {
   const handlePostMessage = (eventMessage: { event: string; data: any }) => {
     if (!webView.current) return;
 
-    const user = firebase.auth.currentUser;
     webView.current.postMessage(
       JSON.stringify(eventMessage)
     );
