@@ -3067,6 +3067,13 @@ expo-error-recovery@~3.1.0:
   resolved "https://registry.yarnpkg.com/expo-error-recovery/-/expo-error-recovery-3.1.0.tgz#c841772e11ed55180e30ebf809580ab051b70535"
   integrity sha512-qUxCW7kPB6AVX5h3ZPVnxw4LLZWsRwAPBtRDlh1UDN7GWZ+CQN1SNk0w0BPotjNtSlXEZSFDqKqtoDDAUYjNmg==
 
+expo-facebook@~12.2.0:
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/expo-facebook/-/expo-facebook-12.2.0.tgz#7d552d18620c5070e3061747ab8e8940953d85a5"
+  integrity sha512-goW+s2tyzAxo2EX6Qp0vML8fjb25TE8ZzpmjGdwh3FvapIBzcY3AKpiAyjH/1sGMvadtbgfy2ApiMKNIom6aTA==
+  dependencies:
+    "@expo/config-plugins" "^4.0.14"
+
 expo-file-system@~14.0.0:
   version "14.0.0"
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-14.0.0.tgz#8367af10969a486fcba2f1e1c7cc0148f855e962"

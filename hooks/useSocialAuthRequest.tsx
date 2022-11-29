@@ -41,7 +41,6 @@ export default function useSocialAuthRequest() {
       clientId: facebookExpoClientId,
       androidClientId: facebookAndroidClientId,
       iosClientId: facebookIosClientId,
-      responseType: ResponseType.Code,
     });
 
   const promptAsync = (provider: string) => {
