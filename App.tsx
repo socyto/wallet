@@ -1,54 +1,55 @@
-import { Component } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { WebView, WebViewMessageEvent } from 'react-native-webview';
-import { StyleSheet, View, StatusBar as StatusBarReact } from 'react-native';
+import { useEffect, useRef } from "react";
+import { StatusBar } from "expo-status-bar";
+import { WebView, WebViewMessageEvent } from "react-native-webview";
+import { StyleSheet, View, StatusBar as StatusBarReact } from "react-native";
 
-import firebase from "./firebase";
-import appEvent from './handler/appEvent';
+import { webClientUrl } from "@env";
+import useSocialAuthRequest from "./hooks/useSocialAuthRequest";
 
+export default function App() {
+  const webView = useRef<WebView<{ javaScriptEnabledAndroid: boolean }> | null>(
+    null
+  );
 
-export default class App extends Component {
-  webview: WebView | null = null;
-  constructor(props: any) {
-    super(props);
+  const { userInfo, promptAsync, logout } = useSocialAuthRequest();
 
-    this.handleOnMessage = this.handleOnMessage.bind(this);
-    this.handlePostMessage = this.handlePostMessage.bind(this);
-  }
+  const handlePostMessage = (eventMessage: { event: string; data: any }) => {
+    if (!webView.current) return;
 
-  handlePostMessage()  {
-    if (!this?.webview) return;
-    const user = firebase.auth.currentUser;
-    this.webview.postMessage(JSON.stringify({
-      event: 'auth',
-      data: user?.getIdToken(),
-    }));
+    webView.current.postMessage(JSON.stringify(eventMessage));
   };
 
-  handleOnMessage = (event: WebViewMessageEvent) => {
+  const handleOnMessage = (event: WebViewMessageEvent) => {
     const message = JSON.parse(event.nativeEvent.data);
-    if (message.event === 'login') {
-      appEvent.signIn(message.data);
+    if (message.event === "login") {
+      const { provider } = message.data;
+      promptAsync(provider);
+    } else if (message.event === "logout") {
+      logout();
     }
-  }
+  };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <StatusBar/>
-        <WebView
-          style={{ flex: 1 }}
-          originWhitelist={['*']}
-          source={{ uri: 'http://192.168.9.140:3000/' }}
-          onMessage={this.handleOnMessage}
-          onError={error => console.log(error)}
-          ref={(r) => this.webview = r}
-          javaScriptEnabledAndroid={true}
-          javaScriptEnabled={true}
-        />
-      </View>
-    );
-  }
+  useEffect(() => {
+    if (userInfo) {
+      handlePostMessage({ event: "auth", data: userInfo.jwt });
+    }
+  }, [userInfo]);
+
+  return (
+    <View style={styles.container}>
+      <StatusBar />
+      <WebView
+        style={{ flex: 1 }}
+        originWhitelist={["*"]}
+        source={{ uri: webClientUrl }}
+        onMessage={handleOnMessage}
+        onError={(error) => console.log(error)}
+        ref={webView}
+        javaScriptEnabledAndroid={true}
+        javaScriptEnabled={true}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
